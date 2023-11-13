@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import christmas.common.domain.Menu;
 import christmas.common.domain.MenuFactory;
 import christmas.order.exception.OrderAllBeverageException;
+import christmas.order.exception.OrderMaxQuantityException;
 import christmas.order.exception.OrderMenuDuplicateException;
 import java.time.LocalDate;
 import java.util.List;
@@ -46,5 +47,18 @@ class OrderTest {
 
         assertThatThrownBy(() -> new Order(orderLines, orderDate))
                 .isInstanceOf(OrderMenuDuplicateException.class);
+    }
+
+    @DisplayName("주문의 주문내역의 총 주문수량이 20개를 초과한다면 예외가 발생한다.")
+    @Test
+    void createByOverQuantity() {
+        Menu soup = MenuFactory.MUSHROOM_SOUP.getMenu();
+
+        OrderLine soupOrderLine = new OrderLine(soup, 21);
+        List<OrderLine> orderLines = List.of(soupOrderLine);
+        LocalDate orderDate = LocalDate.of(2023, 11, 13);
+
+        assertThatThrownBy(() -> new Order(orderLines, orderDate))
+                .isInstanceOf(OrderMaxQuantityException.class);
     }
 }
