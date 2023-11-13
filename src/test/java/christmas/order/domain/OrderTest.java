@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import christmas.common.domain.Menu;
 import christmas.common.domain.MenuFactory;
 import christmas.order.exception.OrderAllBeverageException;
+import christmas.order.exception.OrderMenuDuplicateException;
 import java.time.LocalDate;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
@@ -28,5 +29,22 @@ class OrderTest {
 
         assertThatThrownBy(() -> new Order(orderLines, orderDate))
                 .isInstanceOf(OrderAllBeverageException.class);
+    }
+
+    @DisplayName("주문의 주문내역에 중복된 메뉴가 있다면 예외가 발생한다.")
+    @Test
+    void createByDuplicateMenu() {
+        Menu soup = MenuFactory.MUSHROOM_SOUP.getMenu();
+        Menu tbone = MenuFactory.TBONE_STEAK.getMenu();
+
+        OrderLine soupOrderLine = new OrderLine(soup, 1);
+        OrderLine tboneOrderLine = new OrderLine(tbone, 1);
+        OrderLine duplicateSoupOrderLine = new OrderLine(soup, 1);
+
+        List<OrderLine> orderLines = List.of(soupOrderLine, tboneOrderLine, duplicateSoupOrderLine);
+        LocalDate orderDate = LocalDate.of(2023, 11, 13);
+
+        assertThatThrownBy(() -> new Order(orderLines, orderDate))
+                .isInstanceOf(OrderMenuDuplicateException.class);
     }
 }
