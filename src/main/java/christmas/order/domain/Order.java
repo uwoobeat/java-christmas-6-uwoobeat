@@ -21,8 +21,8 @@ public class Order {
         }
     }
 
-    private boolean checkAllOrdersBeverage(List<OrderLine> orderLines) {
+    private static boolean checkAllOrdersBeverage(List<OrderLine> orderLines) {
         return orderLines.stream()
-                .allMatch(orderLine -> orderLine.menu().type().equals(MenuType.BEVERAGE));
+                .allMatch(line -> line.menu().type().equals(MenuType.BEVERAGE));
     }
 }
