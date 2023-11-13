@@ -1,6 +1,6 @@
-package christmas.vo;
+package christmas.common.domain;
 
-import christmas.exception.InvalidMoneyException;
+import christmas.common.exception.InvalidMoneyException;
 
 public record Money(int amount) {
 

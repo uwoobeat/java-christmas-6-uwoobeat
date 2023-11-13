@@ -1,4 +1,4 @@
-package christmas.exception;
+package christmas.common.exception;
 
 public class ChristmasArgumentException extends IllegalArgumentException {
 

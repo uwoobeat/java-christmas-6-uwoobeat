@@ -1,4 +1,4 @@
-package christmas.exception;
+package christmas.common.exception;
 
 public enum ErrorCode {
     MONEY_INVALID("유효하지 않은 금액입니다.");

@@ -1,4 +1,4 @@
-package christmas.vo;
+package christmas.common.domain;
 
 public record Menu(
         String name,

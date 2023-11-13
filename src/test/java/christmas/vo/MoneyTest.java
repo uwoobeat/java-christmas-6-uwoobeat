@@ -3,7 +3,8 @@ package christmas.vo;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-import christmas.exception.InvalidMoneyException;
+import christmas.common.domain.Money;
+import christmas.common.exception.InvalidMoneyException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
