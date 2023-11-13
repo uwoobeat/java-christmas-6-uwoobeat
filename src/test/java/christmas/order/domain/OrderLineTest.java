@@ -6,6 +6,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import christmas.common.domain.Menu;
 import christmas.common.domain.MenuType;
 import christmas.common.domain.Money;
+import christmas.order.exception.InvalidQuantityException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

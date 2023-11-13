@@ -1,4 +1,4 @@
-package christmas.order.domain;
+package christmas.order.exception;
 
 import christmas.common.exception.ChristmasArgumentException;
 import christmas.common.exception.ErrorCode;

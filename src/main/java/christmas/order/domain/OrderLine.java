@@ -2,6 +2,7 @@ package christmas.order.domain;
 
 import christmas.common.domain.Menu;
 import christmas.common.domain.Money;
+import christmas.order.exception.InvalidQuantityException;
 
 public record OrderLine(
         Menu menu,
