@@ -16,6 +16,15 @@ class MoneyTest {
                 .isInstanceOf(InvalidMoneyException.class);
     }
 
+    @DisplayName("금액이 같다면 같은 돈이다.")
+    @Test
+    void equals() {
+        Money money = new Money(1000);
+        Money target = new Money(1000);
+
+        assertThat(money).isEqualTo(target);
+    }
+
     @DisplayName("금액을 더할 수 있다.")
     @Test
     void add() {
