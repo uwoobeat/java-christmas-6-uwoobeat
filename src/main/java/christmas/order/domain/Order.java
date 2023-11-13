@@ -10,14 +10,14 @@ import java.util.List;
 public class Order {
     public static final int MAX_QUANTITY = 20;
     List<OrderLine> orderLines;
-    LocalDate orderDate;
+    LocalDate orderedAt;
 
-    public Order(List<OrderLine> orderLines, LocalDate orderDate) {
+    public Order(List<OrderLine> orderLines, LocalDate orderedAt) {
         validateTotalQuantity(orderLines);
         validateMenuTypeDuplicate(orderLines);
         validateMenuTypeAllBeverage(orderLines);
         this.orderLines = orderLines;
-        this.orderDate = orderDate;
+        this.orderedAt = orderedAt;
     }
 
     private void validateTotalQuantity(List<OrderLine> orderLines) {
