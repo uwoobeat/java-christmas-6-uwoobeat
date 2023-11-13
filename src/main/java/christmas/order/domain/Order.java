@@ -12,7 +12,7 @@ public class Order {
 
     public Order(List<OrderLine> orderLines, LocalDate orderDate) {
         validateMenuTypeDuplicate(orderLines);
-        validateMenuType(orderLines);
+        validateMenuTypeAllBeverage(orderLines);
         this.orderLines = orderLines;
         this.orderDate = orderDate;
     }
@@ -27,13 +27,13 @@ public class Order {
         return orderLines.stream().distinct().count() != orderLines.size();
     }
 
-    private void validateMenuType(List<OrderLine> orderLines) {
-        if (checkAllOrdersBeverage(orderLines)) {
+    private void validateMenuTypeAllBeverage(List<OrderLine> orderLines) {
+        if (hasAllBeverageMenu(orderLines)) {
             throw new OrderAllBeverageException();
         }
     }
 
-    private static boolean checkAllOrdersBeverage(List<OrderLine> orderLines) {
+    private static boolean hasAllBeverageMenu(List<OrderLine> orderLines) {
         return orderLines.stream()
                 .allMatch(line -> line.menu().type().equals(MenuType.BEVERAGE));
     }
