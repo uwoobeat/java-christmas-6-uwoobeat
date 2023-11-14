@@ -55,4 +55,10 @@ public class Order {
         return orderedAt;
     }
 
+    public int countByType(MenuType menuType) {
+        return orderLines.stream()
+                .filter(line -> line.menu().type().equals(menuType))
+                .mapToInt(OrderLine::quantity)
+                .sum();
+    }
 }
