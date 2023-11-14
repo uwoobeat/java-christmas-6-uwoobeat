@@ -22,4 +22,12 @@ public class Events {
                 .reduce(new Money(0), Money::add);
     }
 
+    public Giveaways getGiveaways() {
+        List<Giveaway> giveaways = events.stream()
+                .filter(GiveawayEvent.class::isInstance)
+                .map(GiveawayEvent.class::cast)
+                .map(GiveawayEvent::give)
+                .toList();
+        return new Giveaways(giveaways);
+    }
 }
