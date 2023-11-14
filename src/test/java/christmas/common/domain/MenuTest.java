@@ -10,8 +10,8 @@ class MenuTest {
     @DisplayName("메뉴 정보들이 같다면 같은 메뉴이다.")
     @Test
     void equals() {
-        Menu menu = MenuFactory.MUSHROOM_SOUP.getMenu();
-        Menu sameMenu = new Menu("양송이수프", MenuType.APPETIZER, new Money(10000));
+        Menu menu = new Menu("테스트 메뉴", MenuType.BEVERAGE, new Money(1000));
+        Menu sameMenu = new Menu("테스트 메뉴", MenuType.BEVERAGE, new Money(1000));
 
         assertThat(menu).isEqualTo(sameMenu);
     }
