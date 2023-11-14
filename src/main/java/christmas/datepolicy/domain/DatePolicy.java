@@ -4,5 +4,5 @@ import java.time.LocalDate;
 
 public interface DatePolicy {
 
-    public boolean isAppliable(LocalDate date);
+    boolean isAppliable(LocalDate date);
 }
