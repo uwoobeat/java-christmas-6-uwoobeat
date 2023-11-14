@@ -50,4 +50,9 @@ public class Order {
         return orderLines.stream()
                 .allMatch(line -> line.menu().type().equals(MenuType.BEVERAGE));
     }
+
+    public LocalDate getOrderedAt() {
+        return orderedAt;
+    }
+
 }
