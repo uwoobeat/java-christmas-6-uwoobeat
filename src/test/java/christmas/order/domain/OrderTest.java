@@ -17,9 +17,9 @@ class OrderTest {
     @DisplayName("주문의 주문내역들의 메뉴타입이 전부 음료라면 예외가 발생한다.")
     @Test
     void createByAllBeverage() {
-        Menu zeroCola = MenuFactory.ZERO_COLA.getMenu();
-        Menu redWine = MenuFactory.RED_WINE.getMenu();
-        Menu champagne = MenuFactory.CHAMPAGNE.getMenu();
+        Menu zeroCola = MenuFactory.ZERO_COLA.get();
+        Menu redWine = MenuFactory.RED_WINE.get();
+        Menu champagne = MenuFactory.CHAMPAGNE.get();
 
         OrderLine zeroColaOrderLine = new OrderLine(zeroCola, 1);
         OrderLine redWineOrderLine = new OrderLine(redWine, 1);
@@ -35,8 +35,8 @@ class OrderTest {
     @DisplayName("주문의 주문내역에 중복된 메뉴가 있다면 예외가 발생한다.")
     @Test
     void createByDuplicateMenu() {
-        Menu soup = MenuFactory.MUSHROOM_SOUP.getMenu();
-        Menu tbone = MenuFactory.TBONE_STEAK.getMenu();
+        Menu soup = MenuFactory.MUSHROOM_SOUP.get();
+        Menu tbone = MenuFactory.TBONE_STEAK.get();
 
         OrderLine soupOrderLine = new OrderLine(soup, 1);
         OrderLine tboneOrderLine = new OrderLine(tbone, 1);
@@ -52,7 +52,7 @@ class OrderTest {
     @DisplayName("주문의 주문내역의 총 주문수량이 20개를 초과한다면 예외가 발생한다.")
     @Test
     void createByOverQuantity() {
-        Menu soup = MenuFactory.MUSHROOM_SOUP.getMenu();
+        Menu soup = MenuFactory.MUSHROOM_SOUP.get();
 
         OrderLine soupOrderLine = new OrderLine(soup, 21);
         List<OrderLine> orderLines = List.of(soupOrderLine);

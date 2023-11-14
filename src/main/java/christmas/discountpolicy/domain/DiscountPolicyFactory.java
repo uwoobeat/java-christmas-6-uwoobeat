@@ -19,7 +19,12 @@ public enum DiscountPolicyFactory {
     }
 
     public Money discount(Order order) {
+        // TODO: 할인 정책 객체를 직접 반환하도록 수정
         return discountPolicy.discount(order);
+    }
+
+    public DiscountPolicy get() {
+        return discountPolicy;
     }
 
     public static class Constants {

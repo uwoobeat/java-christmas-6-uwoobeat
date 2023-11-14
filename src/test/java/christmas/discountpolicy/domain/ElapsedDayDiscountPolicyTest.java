@@ -19,8 +19,8 @@ class ElapsedDayDiscountPolicyTest {
 
     @BeforeEach
     void setUp() {
-        Menu soup = MenuFactory.MUSHROOM_SOUP.getMenu();
-        Menu tbone = MenuFactory.TBONE_STEAK.getMenu();
+        Menu soup = MenuFactory.MUSHROOM_SOUP.get();
+        Menu tbone = MenuFactory.TBONE_STEAK.get();
 
         OrderLine soupOrderLine = new OrderLine(soup, 1);
         OrderLine tboneOrderLine = new OrderLine(tbone, 1);

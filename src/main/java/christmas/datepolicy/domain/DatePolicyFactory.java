@@ -20,7 +20,12 @@ public enum DatePolicyFactory {
     }
 
     public boolean isAppliable(LocalDate date) {
+        // TODO: 정책 객체를 직접 반환하도록 수정
         return datePolicy.isAppliable(date);
+    }
+
+    public DatePolicy get() {
+        return datePolicy;
     }
 
     private static class Constants {

@@ -23,7 +23,7 @@ public enum MenuFactory {
         this.menu = menu;
     }
 
-    public Menu getMenu() {
+    public Menu get() {
         return menu;
     }
 }

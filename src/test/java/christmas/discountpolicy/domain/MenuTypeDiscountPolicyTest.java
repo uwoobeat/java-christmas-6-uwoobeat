@@ -20,9 +20,9 @@ class MenuTypeDiscountPolicyTest {
 
     @BeforeEach
     void setUp() {
-        Menu soup = MenuFactory.MUSHROOM_SOUP.getMenu();  // appetizer
-        Menu tbone = MenuFactory.TBONE_STEAK.getMenu();  // main
-        Menu choco = MenuFactory.CHOCOLATE_CAKE.getMenu();  // dessert
+        Menu soup = MenuFactory.MUSHROOM_SOUP.get();  // appetizer
+        Menu tbone = MenuFactory.TBONE_STEAK.get();  // main
+        Menu choco = MenuFactory.CHOCOLATE_CAKE.get();  // dessert
 
         OrderLine soupOrderLine = new OrderLine(soup, 1);
         OrderLine tboneOrderLine = new OrderLine(tbone, 2);
