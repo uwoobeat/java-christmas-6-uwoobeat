@@ -12,6 +12,6 @@ public class GiveawayPolicy {
     }
 
     public boolean isGiveable(Order order) {
-        return order.calculateTotalPrice().isGreaterOrEqual(criteria);
+        return order.calculateTotalAmount().isGreaterOrEqual(criteria);
     }
 }

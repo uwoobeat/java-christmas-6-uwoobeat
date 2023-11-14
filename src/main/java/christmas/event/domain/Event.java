@@ -19,7 +19,7 @@ public abstract class Event {
     }
 
     private boolean validateTotalPrice(Order order) {
-        return order.calculateTotalPrice().isGreaterOrEqual(MINIMUM_ORDER_PRICE);
+        return order.calculateTotalAmount().isGreaterOrEqual(MINIMUM_ORDER_PRICE);
     }
 
     public final boolean isAppliable(Order order) {

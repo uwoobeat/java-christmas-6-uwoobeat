@@ -63,7 +63,8 @@ public class Order {
                 .sum();
     }
 
-    public Money calculateTotalPrice() {
+    public Money calculateTotalAmount() {
+        // TODO: 커스텀 예외 만들기
         return orderLines.stream()
                 .map(OrderLine::calculatePrice)
                 .reduce(Money::add)
