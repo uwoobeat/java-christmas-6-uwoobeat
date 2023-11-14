@@ -25,4 +25,8 @@ public record Money(int amount) {
     public Money multiply(int target) {
         return new Money(this.amount * target);
     }
+
+    public boolean isGreaterOrEqual(Money target) {
+        return this.amount >= target.amount;
+    }
 }

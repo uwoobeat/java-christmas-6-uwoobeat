@@ -67,4 +67,13 @@ class MoneyTest {
 
         assertThat(result).isEqualTo(new Money(2000));
     }
+
+    @DisplayName("금액이 대상 금액보다 크거나 같다면 참을 반환한다.")
+    @Test
+    void isGreaterOrEqualTrue() {
+        Money money = new Money(1000);
+        Money target = new Money(500);
+
+        assertThat(money.isGreaterOrEqual(target)).isTrue();
+    }
 }

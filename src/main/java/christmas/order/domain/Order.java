@@ -1,6 +1,7 @@
 package christmas.order.domain;
 
 import christmas.common.domain.MenuType;
+import christmas.common.domain.Money;
 import christmas.order.exception.OrderAllBeverageException;
 import christmas.order.exception.OrderMaxQuantityException;
 import christmas.order.exception.OrderMenuDuplicateException;
@@ -60,5 +61,12 @@ public class Order {
                 .filter(line -> line.menu().type().equals(menuType))
                 .mapToInt(OrderLine::quantity)
                 .sum();
+    }
+
+    public Money calculateTotalPrice() {
+        return orderLines.stream()
+                .map(OrderLine::calculatePrice)
+                .reduce(Money::add)
+                .orElseThrow(() -> new IllegalStateException("주문 항목이 없습니다."));
     }
 }
