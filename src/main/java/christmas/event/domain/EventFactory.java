@@ -7,6 +7,8 @@ import christmas.giveawaypolicy.domain.Giveaway;
 import christmas.giveawaypolicy.domain.GiveawayPolicyFactory;
 import christmas.order.domain.Order;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Stream;
 
 public enum EventFactory {
     CHRISTMAS(new DiscountEvent(
@@ -39,6 +41,15 @@ public enum EventFactory {
 
     EventFactory(Event event) {
         this.event = event;
+    }
+
+    public static Events getAppliableEvents(Order order) {
+        List<Event> events = Stream.of(values())
+                .filter(eventFactory -> eventFactory.isAppliable(order))
+                .map(eventFactory -> eventFactory.event)
+                .toList();
+
+        return new Events(events);
     }
 
     public boolean isAppliable(Order order) {
