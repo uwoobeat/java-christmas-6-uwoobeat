@@ -56,6 +56,10 @@ public class Order {
         return orderedAt;
     }
 
+    public List<OrderLine> getOrderLines() {
+        return orderLines;
+    }
+
     public int countByType(MenuType menuType) {
         return orderLines.stream()
                 .filter(line -> line.menu().type().equals(menuType))

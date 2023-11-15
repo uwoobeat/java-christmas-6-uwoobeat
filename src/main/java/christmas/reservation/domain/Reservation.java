@@ -35,4 +35,24 @@ public class Reservation {
 
         return new Reservation(order, applied, giveaways, moneyInfo, badge);
     }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public Giveaways getGiveaways() {
+        return giveaways;
+    }
+
+    public Events getApplied() {
+        return applied;
+    }
+
+    public MoneyInfo getMoneyInfo() {
+        return moneyInfo;
+    }
+
+    public Badge getBadge() {
+        return badge;
+    }
 }

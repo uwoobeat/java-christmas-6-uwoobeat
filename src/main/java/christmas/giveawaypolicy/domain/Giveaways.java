@@ -16,4 +16,8 @@ public class Giveaways {
                 .map(Giveaway::value)
                 .reduce(new Money(0), Money::add);
     }
+
+    public List<Giveaway> getGiveaways() {
+        return giveaways;
+    }
 }

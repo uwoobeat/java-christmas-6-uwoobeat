@@ -29,4 +29,8 @@ public abstract class Event {
     }
 
     protected abstract boolean validateAdditionalConditions(Order order);
+
+    public String getName() {
+        return name;
+    }
 }

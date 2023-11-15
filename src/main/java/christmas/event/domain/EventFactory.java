@@ -49,7 +49,7 @@ public enum EventFactory {
                 .map(eventFactory -> eventFactory.event)
                 .toList();
 
-        return new Events(events);
+        return Events.from(events, order);
     }
 
     public boolean isAppliable(Order order) {
