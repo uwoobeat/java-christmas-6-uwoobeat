@@ -2,7 +2,6 @@ package christmas.discountpolicy.domain;
 
 import christmas.common.domain.MenuType;
 import christmas.common.domain.Money;
-import christmas.order.domain.Order;
 import java.time.LocalDate;
 
 public enum DiscountPolicyFactory {
@@ -16,11 +15,6 @@ public enum DiscountPolicyFactory {
 
     DiscountPolicyFactory(DiscountPolicy discountPolicy) {
         this.discountPolicy = discountPolicy;
-    }
-
-    public Money discount(Order order) {
-        // TODO: 할인 정책 객체를 직접 반환하도록 수정
-        return discountPolicy.discount(order);
     }
 
     public DiscountPolicy get() {
