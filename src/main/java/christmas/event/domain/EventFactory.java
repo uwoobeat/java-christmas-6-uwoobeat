@@ -35,7 +35,7 @@ public enum EventFactory {
             "증정 이벤트",
             Constants.DURING_DECEMBER,
             GiveawayPolicyFactory.CHAMPAGNE.get(),
-            Constants.SILGE_CHAMPAGNE_GIVEAWAY));
+            Constants.SINGLE_CHAMPAGNE_GIVEAWAY));
 
     private final Event event;
 
@@ -63,6 +63,6 @@ public enum EventFactory {
         public static final EventPeriod DURING_DECEMBER = new EventPeriod(
                 LocalDate.of(2023, 12, 1),
                 LocalDate.of(2023, 12, 31));
-        public static final Giveaway SILGE_CHAMPAGNE_GIVEAWAY = new Giveaway(MenuFactory.CHAMPAGNE.get(), 1);
+        public static final Giveaway SINGLE_CHAMPAGNE_GIVEAWAY = new Giveaway(MenuFactory.CHAMPAGNE.get(), 1);
     }
 }
