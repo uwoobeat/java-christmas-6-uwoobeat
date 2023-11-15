@@ -1,5 +1,6 @@
 package christmas.common.domain;
 
+import christmas.common.domain.exception.NoSuchMenuException;
 import java.util.stream.Stream;
 
 public enum MenuFactory {
@@ -30,11 +31,10 @@ public enum MenuFactory {
     }
 
     public static Menu fromName(String name) {
-        // TODO: 커스텀 예외 만들기
         return Stream.of(values())
                 .filter(menuFactory -> menuFactory.menu.name().equals(name))
                 .map(menuFactory -> menuFactory.menu)
                 .findFirst()
-                .orElseThrow(() -> new IllegalStateException("존재하지 않는 메뉴입니다."));
+                .orElseThrow(NoSuchMenuException::new);
     }
 }
