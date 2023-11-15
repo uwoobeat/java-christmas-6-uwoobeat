@@ -1,6 +1,7 @@
 package christmas.reservation.domain;
 
 import christmas.badge.domain.Badge;
+import christmas.badge.domain.BadgeFactory;
 import christmas.event.domain.EventFactory;
 import christmas.event.domain.Events;
 import christmas.giveawaypolicy.domain.Giveaways;
@@ -30,7 +31,8 @@ public class Reservation {
                 order.calculateTotalAmount(),
                 applied.calculateDiscounts(order),
                 giveaways.calculateValueAmount());
+        Badge badge = BadgeFactory.getHighestBadge(moneyInfo).orElse(null);
 
-        return new Reservation(order, applied, giveaways, moneyInfo, null);
+        return new Reservation(order, applied, giveaways, moneyInfo, badge);
     }
 }
