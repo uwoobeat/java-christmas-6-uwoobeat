@@ -41,7 +41,9 @@ public class Events {
     }
 
     public Money calculateDiscount() {
-        return eventBenefits.values().stream()
+        return eventBenefits.keySet().stream()
+                .filter(DiscountEvent.class::isInstance)
+                .map(eventBenefits::get)
                 .reduce(Money.zero(), Money::add);
     }
 }
