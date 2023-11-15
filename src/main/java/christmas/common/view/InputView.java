@@ -5,37 +5,41 @@ import christmas.common.domain.Menu;
 import christmas.common.domain.MenuFactory;
 import christmas.common.exception.ChristmasArgumentException;
 import christmas.order.domain.OrderLine;
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class InputView {
 
+    public static final String INVALID_ORDER_MESSAGE = "유효하지 않은 주문입니다. 다시 입력해 주세요.";
+    public static final String INVALID_DATE_MESSAGE = "유효하지 않은 날짜입니다. 다시 입력해 주세요.";
+
     public LocalDate getReservationDate() {
-        while (true) {
-            try {
-                String input = Console.readLine();
-                int resertationDay = Integer.parseInt(input);
-                return LocalDate.of(2023, 12, resertationDay);
-            } catch (NumberFormatException e) {
-                System.out.println("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
-            } catch (ChristmasArgumentException e) {
-                System.out.println("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
-            }
+        try {
+            String input = Console.readLine();
+            int resertationDay = Integer.parseInt(input);
+            return LocalDate.of(2023, 12, resertationDay);
+        } catch (NumberFormatException | DateTimeException ignored) {
+            printErrorMessage(INVALID_DATE_MESSAGE);
+            return getReservationDate();
+        } catch (ChristmasArgumentException e) {
+            printErrorMessage(e.getMessage());
+            return getReservationDate();
         }
     }
 
     public List<OrderLine> getOrderLines() {
-        while (true) {
-            try {
-                String input = Console.readLine();
-                String[] orderLineInputs = input.split(",");
-                return getOrderLines(orderLineInputs);
-            } catch (NumberFormatException e) {
-                System.out.println("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
-            } catch (ChristmasArgumentException e) {
-                System.out.println("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
-            }
+        try {
+            String input = Console.readLine();
+            String[] orderLineInputs = input.split(",");
+            return getOrderLines(orderLineInputs);
+        } catch (NumberFormatException e) {
+            printErrorMessage(INVALID_ORDER_MESSAGE);
+            return getOrderLines();
+        } catch (ChristmasArgumentException e) {
+            System.out.println(e.getMessage());
+            return getOrderLines();
         }
     }
 
@@ -56,5 +60,9 @@ public class InputView {
         Menu menu = MenuFactory.fromName(menuName);
         int quantity = Integer.parseInt(orderLineInputSplit[1]);
         return new OrderLine(menu, quantity);
+    }
+
+    private static void printErrorMessage(String message) {
+        System.out.println("[ERROR] " + message);
     }
 }
