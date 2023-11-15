@@ -4,6 +4,7 @@ import camp.nextstep.edu.missionutils.Console;
 import christmas.common.domain.Menu;
 import christmas.common.domain.MenuFactory;
 import christmas.common.exception.ChristmasArgumentException;
+import christmas.common.exception.ChristmasStateException;
 import christmas.order.domain.OrderLine;
 import java.time.DateTimeException;
 import java.time.LocalDate;
@@ -23,9 +24,6 @@ public class InputView {
         } catch (NumberFormatException | DateTimeException ignored) {
             printErrorMessage(INVALID_DATE_MESSAGE);
             return getReservationDate();
-        } catch (ChristmasArgumentException e) {
-            printErrorMessage(e.getMessage());
-            return getReservationDate();
         }
     }
 
@@ -34,11 +32,8 @@ public class InputView {
             String input = Console.readLine();
             String[] orderLineInputs = input.split(",");
             return getOrderLines(orderLineInputs);
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException | ChristmasStateException | ChristmasArgumentException ignored) {
             printErrorMessage(INVALID_ORDER_MESSAGE);
-            return getOrderLines();
-        } catch (ChristmasArgumentException e) {
-            System.out.println(e.getMessage());
             return getOrderLines();
         }
     }
