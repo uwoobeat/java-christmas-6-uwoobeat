@@ -1,5 +1,7 @@
 package christmas.common.domain;
 
+import java.util.stream.Stream;
+
 public enum MenuFactory {
     MUSHROOM_SOUP(new Menu("양송이수프", MenuType.APPETIZER, new Money(6000))),
     TAPAS(new Menu("타파스", MenuType.APPETIZER, new Money(5500))),
@@ -25,5 +27,14 @@ public enum MenuFactory {
 
     public Menu get() {
         return menu;
+    }
+
+    public static Menu fromName(String name) {
+        // TODO: 커스텀 예외 만들기
+        return Stream.of(values())
+                .filter(menuFactory -> menuFactory.menu.name().equals(name))
+                .map(menuFactory -> menuFactory.menu)
+                .findFirst()
+                .orElseThrow(() -> new IllegalStateException("존재하지 않는 메뉴입니다."));
     }
 }
