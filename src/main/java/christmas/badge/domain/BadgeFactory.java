@@ -16,3 +16,10 @@ public enum BadgeFactory {
         this.badge = badge;
     }
 
+    public static Optional<Badge> getHighestBadge(MoneyInfo moneyInfo) {
+        return Stream.of(values())
+                .filter(badgeFactory -> badgeFactory.badge.isIssuable(moneyInfo))
+                .map(badgeFactory -> badgeFactory.badge)
+                .findFirst();
+    }
+}
