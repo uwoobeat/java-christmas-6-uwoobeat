@@ -4,18 +4,41 @@ import christmas.common.domain.Money;
 import christmas.giveawaypolicy.domain.Giveaway;
 import christmas.giveawaypolicy.domain.Giveaways;
 import christmas.order.domain.Order;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Events {
 
-    private final List<Event> events;
+    private final Map<Event, Money> eventBenefits;
 
-    public Events(List<Event> events) {
-        this.events = events;
+    private Events(Map<Event, Money> eventBenefits) {
+        this.eventBenefits = eventBenefits;
+    }
+
+    public Map<Event, Money> getEventMap() {
+        return eventBenefits;
+    }
+
+    private List<Event> getEventList() {
+        return List.copyOf(eventBenefits.keySet());
+    }
+
+    public static Events from(List<Event> events, Order order) {
+        Map<Event, Money> eventBenefits = events.stream()
+                .collect(HashMap::new, (map, event) -> {
+                    if (event instanceof DiscountEvent) {
+                        map.put(event, ((DiscountEvent) event).discount(order));
+                    } else if (event instanceof GiveawayEvent) {
+                        map.put(event, ((GiveawayEvent) event).give().value());
+                    }
+                }, Map::putAll);
+
+        return new Events(eventBenefits);
     }
 
     public Money calculateDiscounts(Order order) {
-        return events.stream()
+        return getEventList().stream()
                 .filter(DiscountEvent.class::isInstance)
                 .map(DiscountEvent.class::cast)
                 .map(event -> event.discount(order))
@@ -23,11 +46,12 @@ public class Events {
     }
 
     public Giveaways getGiveaways() {
-        List<Giveaway> giveaways = events.stream()
+        List<Giveaway> giveaways = getEventList().stream()
                 .filter(GiveawayEvent.class::isInstance)
                 .map(GiveawayEvent.class::cast)
                 .map(GiveawayEvent::give)
                 .toList();
+
         return new Giveaways(giveaways);
     }
 }
