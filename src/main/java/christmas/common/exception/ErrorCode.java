@@ -9,8 +9,9 @@ public enum ErrorCode {
     EVENT_PERIOD_INVALID("유효하지 않은 이벤트 기간입니다."),
     GIVEAWAY_INVALID("유효하지 않은 증정품입니다."),
     NO_SUCH_MENU("존재하지 않는 메뉴입니다."),
-    NO_SUCH_ORDER("존재하지 않는 주문입니다.");
-    
+    NO_SUCH_ORDER("존재하지 않는 주문입니다."),
+    EMPTY_ORDER("주문이 비어있습니다.");
+
     private final String message;
 
     ErrorCode(String message) {

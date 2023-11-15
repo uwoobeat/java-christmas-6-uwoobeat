@@ -4,6 +4,7 @@ import christmas.common.domain.MenuType;
 import christmas.common.domain.Money;
 import christmas.order.exception.NoSuchOrderException;
 import christmas.order.exception.OrderAllBeverageException;
+import christmas.order.exception.OrderEmptyException;
 import christmas.order.exception.OrderMaxQuantityException;
 import christmas.order.exception.OrderMenuDuplicateException;
 import java.time.LocalDate;
@@ -15,11 +16,18 @@ public class Order {
     LocalDate orderedAt;
 
     public Order(List<OrderLine> orderLines, LocalDate orderedAt) {
+        validateOrderNotEmpty(orderLines);
         validateTotalQuantity(orderLines);
         validateMenuTypeDuplicate(orderLines);
         validateMenuTypeAllBeverage(orderLines);
         this.orderLines = orderLines;
         this.orderedAt = orderedAt;
+    }
+
+    private void validateOrderNotEmpty(List<OrderLine> orderLines) {
+        if (orderLines.isEmpty()) {
+            throw new OrderEmptyException();
+        }
     }
 
     private void validateTotalQuantity(List<OrderLine> orderLines) {

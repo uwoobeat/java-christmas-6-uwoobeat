@@ -61,15 +61,4 @@ class OrderTest {
         assertThatThrownBy(() -> new Order(orderLines, orderDate))
                 .isInstanceOf(OrderMaxQuantityException.class);
     }
-
-    @DisplayName("총주문금액 계산 시 주문내역이 없다면 예외가 발생한다.")
-    @Test
-    void calculateTotalAmountByEmptyOrderLines() {
-        List<OrderLine> orderLines = List.of();
-        LocalDate orderDate = LocalDate.of(2023, 11, 13);
-        Order order = new Order(orderLines, orderDate);
-
-        assertThatThrownBy(order::calculateTotalAmount)
-                .isInstanceOf(OrderMaxQuantityException.class);
-    }
 }
