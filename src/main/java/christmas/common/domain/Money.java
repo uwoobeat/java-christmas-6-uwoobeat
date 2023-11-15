@@ -14,6 +14,10 @@ public record Money(int amount) {
         }
     }
 
+    public static Money zero() {
+        return new Money(0);
+    }
+
     public Money add(Money target) {
         return new Money(this.amount + target.amount);
     }

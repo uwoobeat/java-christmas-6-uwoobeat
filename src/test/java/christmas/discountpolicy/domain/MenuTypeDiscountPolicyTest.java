@@ -51,6 +51,6 @@ class MenuTypeDiscountPolicyTest {
         MenuTypeDiscountPolicy policy = new MenuTypeDiscountPolicy(MenuType.BEVERAGE, discountUnit);
 
         assertThat(policy.discount(order))
-                .isEqualTo(new Money(0));
+                .isEqualTo(Money.zero());
     }
 }

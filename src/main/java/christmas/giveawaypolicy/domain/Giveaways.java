@@ -14,7 +14,7 @@ public class Giveaways {
     public Money calculateValueAmount() {
         return giveaways.stream()
                 .map(Giveaway::value)
-                .reduce(new Money(0), Money::add);
+                .reduce(Money.zero(), Money::add);
     }
 
     public List<Giveaway> getGiveaways() {

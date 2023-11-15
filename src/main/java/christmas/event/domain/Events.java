@@ -42,6 +42,6 @@ public class Events {
 
     public Money calculateDiscount() {
         return eventBenefits.values().stream()
-                .reduce(new Money(0), Money::add);
+                .reduce(Money.zero(), Money::add);
     }
 }
