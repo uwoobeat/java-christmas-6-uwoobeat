@@ -2,15 +2,16 @@ package christmas.common.view;
 
 import christmas.badge.domain.Badge;
 import christmas.common.domain.Money;
-import christmas.event.domain.DiscountEvent;
+import christmas.event.domain.Event;
 import christmas.event.domain.Events;
-import christmas.event.domain.GiveawayEvent;
 import christmas.giveawaypolicy.domain.Giveaway;
 import christmas.giveawaypolicy.domain.Giveaways;
 import christmas.order.domain.Order;
 import christmas.order.domain.OrderLine;
 import christmas.reservation.domain.Reservation;
 import java.text.DecimalFormat;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public class OutputView {
@@ -48,14 +49,23 @@ public class OutputView {
         System.out.printf("%s %d개%n", line.menu().name(), line.quantity());
     }
 
-    private void printMoney(Money money) {
-        DecimalFormat wonFormat = new DecimalFormat("###,###");
-        System.out.printf("%s원%n", wonFormat.format(money.amount()));
+    private void printMoney(Money money, boolean isNegative) {
+        if (money.amount() == 0) {
+            System.out.println("0원");
+            return;
+        }
+
+        if (isNegative) {
+            System.out.print("-");
+        }
+
+        DecimalFormat decimalFormat = new DecimalFormat("###,###");
+        System.out.println(decimalFormat.format(money.amount()) + "원");
     }
 
     private void printOrderedAmount(Money money) {
         System.out.println("<할인 전 총주문 금액>");
-        printMoney(money);
+        printMoney(money, false);
         System.out.println();
     }
 
@@ -67,8 +77,13 @@ public class OutputView {
             return;
         }
 
-        giveaways.getGiveaways().forEach(this::printGiveaway);
+        printGivewayWhenExists(giveaways.getGiveaways());
+
         System.out.println();
+    }
+
+    private void printGivewayWhenExists(List<Giveaway> giveaways) {
+        giveaways.forEach(this::printGiveaway);
     }
 
     private void printGiveaway(Giveaway giveaway) {
@@ -79,51 +94,43 @@ public class OutputView {
         System.out.println("<혜택 내역>");
 
         if (applied.getEventMap().isEmpty()) {
-            printMessageWhenEmpty();
-            return;
+            printEventBenefitWhenExists(applied.getEventMap());
         }
 
-        applied.getEventMap().forEach((event, money) -> {
-            if (event instanceof DiscountEvent) {
-                printDiscountEvent((DiscountEvent) event, money);
-            }
-            if (event instanceof GiveawayEvent) {
-                printGiveawayEvent((GiveawayEvent) event, money);
-            }
-        });
-
-        System.out.println();
+        printMessageWhenEmpty();
     }
 
-    private void printDiscountEvent(DiscountEvent event, Money money) {
-        System.out.printf("%s: -", event.getName(), money.amount());
-        printMoney(money);
+    private void printEventBenefitWhenExists(Map<Event, Money> eventMoneyMap) {
+        eventMoneyMap.forEach(this::printEventBenefit);
     }
 
-    private void printGiveawayEvent(GiveawayEvent event, Money money) {
-        System.out.printf("%s: -", event.getName());
-        printMoney(money);
+    private void printEventBenefit(Event event, Money money) {
+        System.out.printf("%s: ", event.getName());
+        printMoney(money, true);
     }
 
     private void printBenefitAmount(Money money) {
         System.out.println("<총혜택 금액>");
-        System.out.print("-");
-        printMoney(money);
+        printMoney(money, true);
         System.out.println();
     }
 
     private void printWillPaidAmount(Money money) {
         System.out.println("<할인 후 예상 결제 금액>");
-        printMoney(money);
+        printMoney(money, false);
         System.out.println();
     }
 
     private void printBadge(Badge badge) {
         System.out.println("<12월 이벤트 배지>");
         Optional.ofNullable(badge).ifPresentOrElse(
-                (existBadge) -> System.out.println(existBadge.getName()),
-                () -> System.out.println(NONE_STRING)
+                this::printBadgeWhenExists,
+                this::printMessageWhenEmpty
         );
+    }
+
+    private void printBadgeWhenExists(Badge badge) {
+        System.out.println(badge.getName());
     }
 
     public void printReservationRequestMessage() {
