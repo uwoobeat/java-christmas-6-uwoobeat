@@ -29,7 +29,7 @@ public class Reservation {
         Giveaways giveaways = applied.getGiveaways();
         MoneyInfo moneyInfo = MoneyInfo.of(
                 order.calculateTotalAmount(),
-                applied.calculateDiscounts(order),
+                applied.calculateDiscount(),
                 giveaways.calculateValueAmount());
         Badge badge = BadgeFactory.getHighestBadge(moneyInfo).orElse(null);
 
