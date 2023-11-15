@@ -30,6 +30,8 @@ public abstract class Event {
 
     protected abstract boolean validateAdditionalConditions(Order order);
 
+    public abstract Money getBenefit(Order order);
+
     public String getName() {
         return name;
     }

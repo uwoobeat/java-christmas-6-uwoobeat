@@ -24,7 +24,8 @@ public class DiscountEvent extends Event {
         return datePolicy.isAppliable(order.getOrderedAt());
     }
 
-    public Money discount(Order order) {
+    @Override
+    public Money getBenefit(Order order) {
         return discountPolicy.discount(order);
     }
 }

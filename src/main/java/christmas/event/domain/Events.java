@@ -26,13 +26,8 @@ public class Events {
 
     public static Events from(List<Event> events, Order order) {
         Map<Event, Money> eventBenefits = events.stream()
-                .collect(HashMap::new, (map, event) -> {
-                    if (event instanceof DiscountEvent) {
-                        map.put(event, ((DiscountEvent) event).discount(order));
-                    } else if (event instanceof GiveawayEvent) {
-                        map.put(event, ((GiveawayEvent) event).give().value());
-                    }
-                }, Map::putAll);
+                .filter(event -> event.isAppliable(order))
+                .collect(HashMap::new, (map, event) -> map.put(event, event.getBenefit(order)), HashMap::putAll);
 
         return new Events(eventBenefits);
     }
