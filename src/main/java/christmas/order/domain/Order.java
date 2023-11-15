@@ -2,6 +2,7 @@ package christmas.order.domain;
 
 import christmas.common.domain.MenuType;
 import christmas.common.domain.Money;
+import christmas.order.exception.NoSuchOrderException;
 import christmas.order.exception.OrderAllBeverageException;
 import christmas.order.exception.OrderMaxQuantityException;
 import christmas.order.exception.OrderMenuDuplicateException;
@@ -68,10 +69,9 @@ public class Order {
     }
 
     public Money calculateTotalAmount() {
-        // TODO: 커스텀 예외 만들기
         return orderLines.stream()
                 .map(OrderLine::calculatePrice)
                 .reduce(Money::add)
-                .orElseThrow(() -> new IllegalStateException("주문 항목이 없습니다."));
+                .orElseThrow(NoSuchOrderException::new);
     }
 }
